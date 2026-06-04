@@ -1,0 +1,4 @@
+confluent_kafka[json]
+jsonschema
+faust-streaming[rocksdb]
+aiokafka>=0.9.0,<0.11.0

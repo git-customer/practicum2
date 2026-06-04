@@ -1,0 +1,53 @@
+services:
+  messenger:
+    build: .
+    command: faust -A messenger:app worker -l info
+    networks:
+      - kafka_shared_network
+    volumes:
+      - messenger_logs:/app/logs
+
+  client1:
+    build: .
+    command: python client.py
+    networks:
+      - kafka_shared_network
+    hostname: "client1"
+    depends_on:
+      - messenger
+
+  client2:
+    build: .
+    command: python client.py
+    networks:
+      - kafka_shared_network
+    hostname: "client2"
+    depends_on:
+      - messenger
+
+  client3:
+    build: .
+    command: python client.py
+    networks:
+      - kafka_shared_network
+    hostname: "client3"
+    depends_on:
+      - messenger
+
+  client4:
+    build: .
+    command: python client.py
+    networks:
+      - kafka_shared_network
+    hostname: "client4"
+    depends_on:
+      - messenger
+
+networks:
+  kafka_shared_network:
+    external: true
+    name: docker_kafka_shared_net
+
+volumes:
+  messenger_logs:
+
